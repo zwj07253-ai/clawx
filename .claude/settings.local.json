@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm dev:*)",
+      "Bash(curl -s http://127.0.0.1:18789/health)",
+      "Bash(curl -s http://192.168.2.242:18789/health)",
+      "Bash(curl -s -H \"Authorization: Bearer clawx-f9918742adf91e938b4c6c2e2e8f29ac\" http://192.168.2.242:18789/api/status)",
+      "Bash(curl -s -H 'Authorization: Bearer clawx-f9918742adf91e938b4c6c2e2e8f29ac' http://192.168.2.242:18789/)",
+      "Bash(netstat -ano)",
+      "Bash(findstr \":18789\")",
+      "Bash(tasklist /FI 'PID eq 10120' /FI 'PID eq 23276')",
+      "Bash(tasklist)",
+      "Bash(findstr -E \"10120|23276\")",
+      "Bash(wmic process:*)",
+      "Bash(findstr -i \"node openclaw\")",
+      "Bash(curl -s http://127.0.0.1:18789/api/status)",
+      "Bash(find:*)",
+      "Bash(npm run:*)",
+      "Bash(cp:*)",
+      "Bash(npx asar:*)",
+      "Bash(npm install:*)",
+      "Bash(cat:*)",
+      "Bash(node:*)",
+      "Bash(ls:*)",
+      "Bash(npx tsc:*)",
+      "Bash(which asar:*)",
+      "Bash(npx:*)",
+      "Bash(grep:*)",
+      "Read(//private/tmp/superpowers/skills/systematic-debugging/**)"
+    ]
+  }
+}

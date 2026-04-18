@@ -1,0 +1,82 @@
+{
+  "name": "clawx",
+  "version": "0.2.0-beta.7",
+  "description": "ClawX",
+  "main": "dist-electron/main/index.js",
+  "scripts": {
+    "prepare-bindings": "node scripts/prepare-native-bindings.js",
+    "pack": "npm run prepare-bindings && electron-builder --dir",
+    "dist:mac": "npm run prepare-bindings && electron-builder --mac",
+    "dist:win": "npm run prepare-bindings && electron-builder --win",
+    "dist": "npm run prepare-bindings && electron-builder --mac --win"
+  },
+  "build": {
+    "appId": "com.clawx.app",
+    "productName": "ClawX",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "build/openclaw",
+        "to": "openclaw",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "build/openclaw-plugins",
+        "to": "openclaw-plugins",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "build/bin",
+        "to": "bin",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "dependencies": {
+    "electron-store": "^11.0.2",
+    "electron-updater": "^4.6.5",
+    "ws": "8.19.0"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  }
+}
