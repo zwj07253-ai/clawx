@@ -30,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Install OpenClaw dependencies
-        run: npm --prefix build/openclaw ci
+        run: npm --prefix build/openclaw install
 
       - name: Build macOS installer
         env:
