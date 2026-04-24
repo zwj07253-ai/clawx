@@ -29,6 +29,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install OpenClaw dependencies
+        run: npm --prefix build/openclaw ci
+
       - name: Build macOS installer
         env:
           # Prevent accidental auto-publish during CI packaging.
