@@ -1,0 +1,50 @@
+name: Build macOS DMG
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch, tag, or SHA to build"
+        required: false
+        default: "main"
+
+permissions:
+  contents: read
+
+jobs:
+  build-mac-dmg:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build renderer
+        run: npm run build:vite
+
+      - name: Build macOS installer
+        env:
+          # Prevent accidental auto-publish during CI packaging.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run dist:mac -- --publish never
+
+      - name: Upload DMG artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: clawx-macos-dmg
+          path: |
+            release/*.dmg
+            release/latest-mac.yml
+            release/*.blockmap
+          if-no-files-found: error
+          retention-days: 7
